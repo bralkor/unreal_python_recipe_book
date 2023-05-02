@@ -1,0 +1,30 @@
+{
+	"FileVersion": 1,
+	"Version": 1,
+	"VersionName": "1.0",
+	"FriendlyName": "Python Recipe Book",
+	"Description": "Python demo code with a simple Editor Utility Widget",
+	"Category": "Scripting",
+	"CreatedBy": "Brian Kortbus",
+	"CreatedByURL": "",
+	"DocsURL": "",
+	"MarketplaceURL": "",
+	"SupportURL": "",
+	"CanContainContent": true,
+	"IsBetaVersion": false,
+	"IsExperimentalVersion": false,
+	"Installed": false,
+	"EnabledByDefault": true,
+	"Modules": [
+		{
+			"Name": "PythonRecipeBook",
+			"Type": "Editor"
+		},
+	],
+	"Plugins": [
+		{
+			"Name": "PythonScriptPlugin",
+			"Enabled": true
+		}
+	]
+}
