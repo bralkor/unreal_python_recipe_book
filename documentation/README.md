@@ -96,6 +96,17 @@ How to manage EUWs with Python. This covers opening and closing EUWs, managing u
 
 An example Editor Tool which makes use of Python. This tool displays arbitrary assets and allows for filtering based on their metadata values.
 
+</td></tr><tr><td>
+
+
+(9) [Making Python Blueprint Functions Safer](./09_making_python_BP_functions_safer.md)
+</td><td>
+
+Addressing the concerns mentioned on the
+[Blueprint Function Libraries](./02_blueprint_function_libraries.md) and
+[EUWs and Python](./07_editor_utility_widgets.md) pages,
+this covers how to make Python-based Blueprint Functions safer to use.
+
 </td></tr>
 </table>
 

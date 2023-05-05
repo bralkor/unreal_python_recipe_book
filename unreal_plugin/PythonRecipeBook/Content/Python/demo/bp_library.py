@@ -257,3 +257,16 @@ class PyDemoBPLibrary(unreal.BlueprintFunctionLibrary):
         # Get the asset path and pass it to the editor_tools module
         editor_tool_path = str(editor_tool.get_class().get_outer().get_path_name())
         editor_tools.on_editor_tool_close(editor_tool_path)
+
+
+    @unreal.ufunction(
+        static=True, params=[unreal.EditorUtilityWidget],
+        meta=dict(Category="demo | EUW | prefs", DeterminesOutputType="editor_tool", DefaultToSelf="editor_tool")
+    )
+    def remove_tool_from_unreal_prefs(editor_tool):
+        """Python Blueprint Node -- pass a widget's `self` reference to remove it from the Unreal User Prefs INI"""
+
+        # Get the asset path and pass it to the editor_tools module
+        editor_tool_path = str(editor_tool.get_class().get_outer().get_path_name())
+        tool = unreal.find_asset(editor_tool_path)
+        unreal.PythonUtilsLibrary.clear_editor_tool_from_prefs(tool)

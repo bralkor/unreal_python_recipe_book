@@ -303,7 +303,7 @@ the second function just adds the entry script to the bottom of the parent menu.
 
 <br>
 
-Another option we could use here is to pack this functionality into the `__init__()` function:
+Working this functionality back into our base class, we could make the `insert_policy` an option on the `__init__()` function:
 ```python
     def __init__(self, menu_object, section, insert_policy=None):
         """Initialize our entry for the given menu_object's section"""
@@ -360,7 +360,7 @@ when you need more control over how a menu is added, but it's also perfectly acc
 [ToolMenuEntryScript](https://docs.unrealengine.com/5.1/en-US/PythonAPI/class/ToolMenuEntryScript.html#unreal.ToolMenuEntryScript)
 directly to just get it listed.
 
-And to spam credit once more, here is [rondreas' original implementation](https://gist.github.com/rondreas/eeecb0fcf52f05e898e0e31b22658068) 
+And to give credit once more, here is [rondreas' original implementation](https://gist.github.com/rondreas/eeecb0fcf52f05e898e0e31b22658068) 
 for the menu insert method that I learned from.
 
 </ul>

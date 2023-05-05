@@ -11,18 +11,27 @@ This page covers the [bp_library](../unreal_plugin/PythonRecipeBook/Content/Pyth
 
 
 # <span style="color:yellow">An Important Warning</span>
+<ul>
 
-This page covers an implementation that is not recommended for general use by Epic. If any Editor Actors or Editor
-Tools reference Python-created Blueprint Function nodes (the implementation covered on this page) 
-they have a chance of breaking the next time you open the Unreal Project.
+This page covers an implementation that is not recommended for general use by Epic.
 
-For general use it is recommended to use the Epic-provided `Execute Python Script` Node. If you have more
-control over your Python-based tools/assets, aren't afraid of c++, and would still like to explore the
-option on this page please also read the
-[Editor Utility Widgets documentation page](./07_editor_utility_widgets.md#unreal-shutdownstartup-and-python-based-bp-nodes)
-as well. The implementation covered on this page is recommended if you're comfortable with c++, have reliable
-control over how your Python tools are deployed, and accept the risks of this method.
+For general use it is recommended to use the Epic-provided `Execute Python Script` Node. Here is an example using 
+the Execute Python Script node in Blueprints:
 
+![](images/execute_python.PNG)
+
+The input and output variables can be declared in the Details Panel as wildcard data types:
+
+![](images/execute_python_options.PNG)
+
+<br>
+
+The rest of this page will cover an implementation that requires more safety measures to use effectively. The 
+[Making Python Blueprint Functions Safer documentation page](./09_making_python_BP_functions_safer.md)
+covers the work required to make this approach safer to use, all of which is provided in the provided Unreal plugin and
+implemented on the `meta_viewer` tool.
+
+</ul>
 <br>
 
 

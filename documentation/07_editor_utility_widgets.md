@@ -1,6 +1,6 @@
 # <span style="color:white">Editor Utility Widgets (EUWs) and Python</span>
 
-In Python, we can open, close, and query the currently running EUW editor tools. We can also call
+We can open, close, and query the currently running EUW editor tools using Python. We can also call
 Python logic from our editor tools using Python-based BP nodes, such as to save/load user prefs.
 This page covers both topics and includes a general warning for any editor tools using Python-based BP nodes.
 
@@ -8,6 +8,18 @@ This page covers the [editor_tools](../unreal_plugin/PythonRecipeBook/Content/Py
 python module
 
 <br>
+
+# <span style="color:yellow">An Important Warning</span>
+<ul>
+
+This page covers an implementation that requires more safety measures to use effectively. The 
+[Making Python Blueprint Functions Safer documentation page](./09_making_python_BP_functions_safer.md)
+covers the work required to make this approach safer to use, all of which is provided in this project's Unreal plugin and
+implemented on the `meta_viewer` tool.
+
+</ul>
+<br>
+
 
 
 ## <span style="color:yellow">Opening/Closing Editor Utility Widgets</span>
@@ -200,144 +212,11 @@ it's not too exciting here in the docs but try it out!
 <br>
 
 
-## <span style="color:yellow">Unreal Shutdown/Startup and Python-based BP Nodes</span>
-<ul>
-
-An important consideration to be aware of is that Python is an Unreal Plugin, as such it's not
-the first thing Unreal will load when launching a project. The project's default
-3D level will process and open before the plugins have been loaded. Cached Editor Utility Widgets
-will also open before the plugins have been loaded (editor tools that were still open during Editor shutdown). 
-
-What this means for us is that there's a reasonable chance of these editor assets loading before their
-Python-based Blueprint Nodes have been registered in the Editor. If any nodes were implemented in the way described by
-[the Blueprint Function Libraries documentation page](./02_blueprint_function_libraries.md)
-we will need to avoid placing these nodes in the project's default 3D level and prevent Unreal from
-caching those Editor Utility Widgets.
-
-<br>
-    
-It can get lost in the Output Log, but here is an example of an editor tool that broke because
-Unreal reopened it before Python was initialized:
-```
-LogBlueprint: Error: [AssetLog] C:\ue_projects\demo_project\Plugins\PythonRecipeBook\Content\sample_tools\meta_viewer.uasset: [Compiler] In use pin  Array To Match  no longer exists on node  Get Item Data For Euw . Please refresh node or break links to remove pin.
-LogBlueprint: Error: [AssetLog] C:\ue_projects\demo_project\Plugins\PythonRecipeBook\Content\sample_tools\meta_viewer.uasset: [Compiler] In use pin  Return Value  no longer exists on node  Get Item Data For Euw . Please refresh node or break links to remove pin.
-LogBlueprint: Error: [AssetLog] C:\ue_projects\demo_project\Plugins\PythonRecipeBook\Content\sample_tools\meta_viewer.uasset: [Compiler] Could not find a function named "get_item_data_for_euw" in 'meta_viewer'.
-Make sure 'meta_viewer' has been compiled for  Get Item Data For Euw
-```
-This happened because I closed the editor while the `meta_viewer` editor tool was still running.
-    
-<br>
-
-In the following sections we'll go over a means of preventing this error by making sure our tool doesn't get saved to this user prefs.
-
-
-### <span style="color:orange">The Necessary c++ Logic</span>
-<ul>
-
-The source of this issue is the User Prefs, which is only accessible in c++.
-The user pref in question lives on the **EditorUtilitySubsystem**'s **LoadedUIs** property.
-We need to get this property, remove the given entry, and then save the user prefs to disk.
-
-Here is what that logic looks like (available in the PythonRecipeBook plugin):
-```cpp
-void
-UPythonUtilsLibrary::ClearEditorToolFromPrefs(UEditorUtilityWidgetBlueprint* EditorWidget) {
-    UEditorUtilitySubsystem* EUS = GEditor->GetEditorSubsystem<UEditorUtilitySubsystem>();
-    EUS->LoadedUIs.Remove(EditorWidget);
-    EUS->SaveConfig();
-}
-```
-
-it may be accessed in Python via:
-```python
-unreal.PythonUtilsLibrary.clear_editor_tool_from_prefs(editor_widget_blueprint)
-```
-
-This c++ function will get the Editor Utility Subsystem, remove the given asset from its user prefs, 
-and then update the user prefs file on disk. This function is available in both the BP Graph and
-Python, but I plan to further extend this function in Python to make it more convenient.
-
-</ul>
-
-
-### <span style="color:orange">Extending the c++ Logic in a Python-based Node</span>
-<ul>
-
-I am not a proper c++ programmer, my method is usually to find & copy existing engine code
-for the functionality that I need and then extend it further in Python as needed.
-
-In my Python function is where I'll start building in some conveniences, such as working off of a `self` 
-reference. Using the `DefaultToSelf` decorator arg we'll pass the current EUW instance to Python, get its 
-Content Browser asset, and pass that to our c++ function.
-
-This is what the Python-based BP function looks like:
-```python
-    @unreal.ufunction(
-        static=True, params=[unreal.EditorUtilityWidget],
-        meta=dict(DefaultToSelf="editor_tool")
-    )
-    def on_editor_tool_close(editor_tool):
-        """Python Blueprint Node -- Manage Editor Tools using Python-based nodes"""
-
-        # Get the Content Browser asset and remove it from the c++ User Prefs
-        editor_tool_path = str(editor_tool.get_class().get_outer().get_path_name())
-        editor_tool_asset = unreal.find_asset(editor_tool_path)
-        unreal.PythonUtilsLibrary.clear_editor_tool_from_prefs(editor_tool_asset)
-```
-
-- The `DefaultToSelf` meta entry will auto-populate the `editor_tool` arg with a reference to `self`
-- `editor_tool_path` is the EUW's package path, such as `Content/tools/my_tool`
-- `editor_tool_asset` is a reference to the proper base asset needed for `clear_editor_tool_from_prefs()`
-
-<br>
-
-We'll call this Python-based Node on the Destruct event, which runs when the editor tool is closed:
-
-![](images/editor_widget_node.PNG)
-
-With this node added our tool won't save to the User Prefs INI file on Editor shutdown anymore. 
-It will not open automatically anymore on Editor startup, but it will make the tool more error-proof.
-
-</ul>
-
-### <span style="color:orange">Limitations</span>
-<ul>
-
-This setup will work for intentional Editor shutdown, but it may not be reliable if the Editor
-crashes. Following an Editor crash the user may still need to close all Editor Widgets and reopen Unreal.
-
-To make the system more robust we could call this function after the `Construct` event is complete
-or adding it to additional events such as `On Mouse Enter`, but it might not be 100% error proof.
-The best case scenario would be to change the c++ code, but that may not be an option for every project.
-
-</ul>
-
-### <span style="color:orange">Managing Our Own Shutdown/Startup</span>
-<ul>
-
-this is a complex topic that I might write up properly another time, but it's still possible to relaunch our
-tools during editor startup. This would require writing our own user prefs system and some Python magic, but
-it is possible! A working solution is provided in the `editor_tools` Python module of the plugin, feel free 
-to try it out and dissect it!
-
-</ul>
-
-</ul>
-<br>
-    
-    
-    
 
 # <span style="color:yellow">Summary</span>
 <ul>
 
-Editor Utility Widgets using Python-based BP nodes can be dangerous by default, but with a little c++ we can 
-make them safer to use. Managing these editor tools isn't entirely necessary, really it's up to how complex you want 
-to go! Removing them from Unreal's user prefs INI makes them safe, but we can also write our own 
-prefs / management system in Python to expand functionality.
-
-Once we get past the dangers of EUWs using Python-based BP nodes, there is a lot of power in using Python in
-editor tools: we can easily set up user prefs, manage our active tools, and write functionality beyond Unreal
-with ease.
+Python offers a lot of potential to our Editor Utility Widgets. We can launch and manage our editor tools
+from Python, and we can even add new functionality to our tools as well.
 
 </ul>

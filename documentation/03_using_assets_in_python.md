@@ -85,7 +85,7 @@ to set them or
 [get_editor_property()](https://docs.unrealengine.com/5.1/en-US/PythonAPI/class/_ObjectBase.html#unreal._ObjectBase.get_editor_property)
 to get them.
 
-When setting or getting editor properties for any Blueprint assets you will need the exact programmatic name, this may differe from what is displayed
+When setting or getting editor properties for any Blueprint assets you will need the exact programmatic name, this may differ from what is displayed
 in the Unreal Editor.
 </ul>
 <br>
