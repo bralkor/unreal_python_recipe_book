@@ -72,10 +72,14 @@ Another use case for this convenience module are subsystems. Depending on the su
 [get_editor_subsystem()](https://docs.unrealengine.com/5.1/en-US/PythonAPI/module/unreal.html#unreal.get_editor_subsystem)
 or
 [get_engine_subsystem()](https://docs.unrealengine.com/5.1/en-US/PythonAPI/module/unreal.html#unreal.get_engine_subsystem)
-to get the subsystem's global instance. Initializing the subsystems in one Python module ensure consistency across the code
-base and reduces the frustrations of copying those functions around.
-
-In this module I add the subsytems like so:
+to get the subsystem's global instance. 
+    
+While it is possible to use `unreal.AssetEditorSubsystem().do_the_thing()` to perform most subsystem functionality, the global instances
+have additional bindings and connections that a new instance would not have. It is highly recommended to get the global instance of the 
+desired subsystem, the global instance will perform all functions reliably and update the Editor UI correctly where a new instance might not.
+    
+Initializing the subsystems in one Python module ensure consistency across the code
+base and reduces the frustrations of copying those functions around:
 ```python
 AssetEditorSubsystem   = unreal.get_editor_subsystem(unreal.AssetEditorSubsystem)
 EditorActorSubsystem   = unreal.get_editor_subsystem(unreal.EditorActorSubsystem)
