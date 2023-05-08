@@ -13,7 +13,7 @@ focus is on building working examples rather than explaining Unreal's toolsets o
 this project is to show how the pieces go together in Python.
 
 Any code shown should be present in the provided Unreal plugin's Python modules but there may be some differences
-to help with clutter and formatting. Some code snippets may reference modules such as `ue` or `metadata` from the plugin's
+to help with clutter and formatting. Some code snippets may reference modules such as `unreal_systems` or `metadata` from the plugin's
 Python modules, if it doesn't start with `unreal` and hasn't been explained it's probably from another module within this project.
 
 <br>
