@@ -93,24 +93,24 @@ in the Unreal Editor.
 
 
 
-## <span style="color:yellow">Calling BP Functions In Python</span>
+## <span style="color:yellow">Calling Blueprint Graph Functions In Python</span>
 <ul>
 
 Functions created in the Unreal Editor can be accessed via Python by using 
 [call_method()](https://docs.unrealengine.com/5.1/en-US/PythonAPI/class/_ObjectBase.html#unreal._ObjectBase.call_method).
-With the proper handle on a class object in Python, this function allows us to call any other
-functions normally accessible from a Blueprint Graph - namely, any functions created in the Blueprint Editor. 
+Using a Blueprint Actor as an example, if we had the Python reference to a spawned instance in a 3D Level we could use
+this function to call any custom functions defined in the asset's Blueprint Graph.
 
 So! Let's make some functions in the Blueprint Editor:
 
 ![](images/editor_asset_functions.PNG)
 
-The first BP function, `get_arbitrary_data`, returns a randon integer. The second BP function, `add_prefix` takes a
+The first Blueprint function, `get_arbitrary_data`, returns a randon integer. The second Blueprint function, `add_prefix`, takes a
 string input and returns it with an added prefix.
 
-If the BP function has no kwargs we can call it directly from an asset instance:
+If the Blueprint function has no kwargs we can call it directly from the actor instance:
 ```python
-test_data = asset_instance.call_method("get_arbitrary_data")
+test_data = actor_instance.call_method("get_arbitrary_data")
 print(f"returned data: {test_data}")
 
 # returned data: 17
@@ -123,12 +123,12 @@ If a function has inputs we can choose one of two delivery methods:
 <br>
     
 ```python
-test_data = asset_instance.call_method("add_prefix", ("woohoo",))
+test_data = actor_instance.call_method("add_prefix", ("woohoo",))
 print(f"returned data: {test_data}")
 
 # returned data: processed_woohoo
 
-test_data = asset_instance.call_method("add_prefix", kwargs={"base_string": "huzzah"})
+test_data = actor_instance.call_method("add_prefix", kwargs={"base_string": "huzzah"})
 print(f"returned data: {test_data}")
 
 # returned data: processed_huzzah
@@ -140,9 +140,9 @@ Either option is fine to use, my preference is to use `kwargs` because I often m
     
 <ul>
     
-If you use `camelCase` or any spaces in your names their access may be changed in Python
+If you use `camelCase` or any spaces in your Blueprint function names their access may be changed in Python
 - `camelCaseArg` is automatically snake cased to `camel_case_arg`
-- `args with spaces` it wraps the spaces with underscores, it can be accessed with `args_ _with_ _spaces`
+- `arg with spaces` it wraps the spaces with underscores, it can be accessed with `arg_ _with_ _spaces`
 - `snake_case` args will remain `snake_case` in Python
     
 </ul>
