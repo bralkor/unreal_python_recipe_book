@@ -39,6 +39,99 @@ which may be placed in any `UE5.2` project
 The [Python Documentation](./documentation) covers the Python code provided in the Unreal Plugin for various topics. 
 The focus of this documentation is on working examples, it is recommended readers already be familiar with both Unreal Engine and Python.
 
+Currently available pages:
+
+<table>
+<tr><td>
+
+(0) [Dev Conveniences](./documentation/00_conveniences.md)
+
+</td><td>
+
+Some small conveniences I've found and make use of in my own code.
+
+
+</td></tr><tr><td>
+
+
+(1) [Startup and Shutdown](./documentation/01_startup_and_shutdown.md)
+</td><td>
+
+How to run code at various points of Unreal's startup and shutdown sequences. 
+
+</td></tr><tr><td>
+
+
+(2) [Blueprint Function Libraries](./documentation/02_blueprint_function_libraries.md)
+</td><td>
+
+How to create Blueprint Graph function nodes in Python. This allows us far greater freedom and possibilities to call Python logic from the BP Graph.
+Examples with screenshots are provided for each individual option.
+
+</td></tr><tr><td>
+
+
+(3) [Using Assets in Python](./documentation/03_using_assets_in_python.md)
+</td><td>
+
+How to interact with Content Browser assets in Python. This covers instancing, properties, and calling Blueprint functions.
+
+</td></tr><tr><td>
+
+
+(4) [Extending Menus](./documentation/04_extending_menus.md)
+</td><td>
+
+How to create and insert new menus in the Editor. This covers how to find menus, create drop down menus, and two styles of adding menu buttons.
+
+</td></tr><tr><td>
+
+
+(5) [Actor and Component Interactions](./documentation/05_actors_and_components.md)
+</td><td>
+
+How to interact with actors and components. This covers walking actor and component hierarchies as well as some basic interactions, 
+such as determining the source asset of an actor.
+
+</td></tr><tr><td>
+
+
+(6) [Using Asset Metadata](./documentation/06_using_asset_metadata.md)
+</td><td>
+
+How to use and interact with Content Browser Asset metadata. This covers getting, setting, and searching for assets via metadata.
+
+</td></tr><tr><td>
+
+
+(7) [Editor Utility Widgets (EUWs) and Python](./documentation/07_editor_utility_widgets.md)
+</td><td>
+
+How to manage EUWs with Python. This covers opening and closing EUWs, managing user prefs, and a danger when using EUWs with Python.
+
+</td></tr><tr><td>
+
+
+(8) [An Editor Utility Widget Example](./documentation/08_editor_widget_example.md)
+</td><td>
+
+An example Editor Tool which makes use of Python. This tool displays arbitrary assets and allows for filtering based on their metadata values.
+
+</td></tr><tr><td>
+
+
+(9) [Making Python Blueprint Functions Safer](./documentation/09_making_python_BP_functions_safer.md)
+</td><td>
+
+Addressing the concerns mentioned on the
+[Blueprint Function Libraries](./02_blueprint_function_libraries.md) and
+[EUWs and Python](./07_editor_utility_widgets.md) pages,
+this covers how to make Python-based Blueprint Functions safer to use.
+
+</td></tr>
+</table>
+
+
 </ul>
 <br>
 
