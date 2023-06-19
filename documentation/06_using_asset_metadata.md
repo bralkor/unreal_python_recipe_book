@@ -13,13 +13,13 @@ This page covers the [metadata](../unreal_plugin/PythonRecipeBook/Content/Python
 In the Unreal Project we first need to register our metadata names. This can be done in the `Asset Registry` section
 of the `Project Settings` Editor Window:
 
-![https://www.google.com/search?q=unreal+5+metadata&rlz=1C1CHBF_enUS722US722&oq=unreal+5+metadata&aqs=chrome..69i57j69i60l2.3181j0j1&sourceid=chrome&ie=UTF-8](https://docs.unrealengine.com/5.1/Images/understanding-the-basics/assets-content-packs/asset-metadata/fbx-metadata-asset-registry.png)
+![https://www.google.com/search?q=unreal+5+metadata&rlz=1C1CHBF_enUS722US722&oq=unreal+5+metadata&aqs=chrome..69i57j69i60l2.3181j0j1&sourceid=chrome&ie=UTF-8](https://docs.unrealengine.com/5.2/Images/understanding-the-basics/assets-content-packs/asset-metadata/fbx-metadata-asset-registry.png)
 
-(image is from Epic's [Asset Metadata in Unreal Engine](https://docs.unrealengine.com/5.1/en-US/asset-metadata-in-unreal-engine/)
+(image is from Epic's [Asset Metadata in Unreal Engine](https://docs.unrealengine.com/5.2/en-US/asset-metadata-in-unreal-engine/)
 page, it's well worth reading!)
 
 Metadata **must be properly declared** before we can make full use of them in Python. The most direct way to do this
-is in the Project Settings window within the Editor. In Unreal 5.1 there is no direct means of adding Metadata names on the fly using Python,
+is in the Project Settings window within the Editor. In Unreal 5.2 there is no direct means of adding Metadata names on the fly using Python,
 that functionality needs to be exposed from c++ ourselves if desired. 
 
 </ul>
@@ -31,7 +31,7 @@ that functionality needs to be exposed from c++ ourselves if desired.
 <ul>
 
 We can set an asset's metadata using 
-[set_metadata_tag()](https://docs.unrealengine.com/5.1/en-US/PythonAPI/class/EditorAssetLibrary.html#unreal.EditorAssetLibrary.set_metadata_tag)
+[set_metadata_tag()](https://docs.unrealengine.com/5.2/en-US/PythonAPI/class/EditorAssetLibrary.html#unreal.EditorAssetLibrary.set_metadata_tag)
 on the asset. An important note to remember is that Unreal uses strings to store its metadata:
 ```python
 unreal_systems.EditorAssetLibrary.set_metadata_tag(asset, "asset_name", str("Eugene"))
@@ -55,9 +55,9 @@ def set_metadata(asset, key, value):
 <ul>
 
 We can get an asset's metadata values from two places: the 
-[loaded object](https://docs.unrealengine.com/5.1/en-US/PythonAPI/class/EditorAssetLibrary.html#unreal.EditorAssetLibrary.get_metadata_tag)
+[loaded object](https://docs.unrealengine.com/5.2/en-US/PythonAPI/class/EditorAssetLibrary.html#unreal.EditorAssetLibrary.get_metadata_tag)
 or from an 
-[AssetData reference](https://docs.unrealengine.com/5.1/en-US/PythonAPI/class/AssetData.html#unreal.AssetData.get_tag_value)
+[AssetData reference](https://docs.unrealengine.com/5.2/en-US/PythonAPI/class/AssetData.html#unreal.AssetData.get_tag_value)
 
 
 ### From a Loaded Object
@@ -65,7 +65,7 @@ or from an
 <ul>
 
 If we have a loaded asset we can use 
-[get_metadata_tag()](https://docs.unrealengine.com/5.1/en-US/PythonAPI/class/EditorAssetLibrary.html#unreal.EditorAssetLibrary.get_metadata_tag)
+[get_metadata_tag()](https://docs.unrealengine.com/5.2/en-US/PythonAPI/class/EditorAssetLibrary.html#unreal.EditorAssetLibrary.get_metadata_tag)
 to query for a given metadata's value:
 ```python
 value = unreal_systems.EditorAssetLibrary.get_metadata_tag(asset, "asset_name")
@@ -79,10 +79,10 @@ This will return the metadata value as a string if found.
 <ul>
 
 If we use the Asset Registry to find a list of assets we'll get the results as an
-[AssetData](https://docs.unrealengine.com/5.1/en-US/PythonAPI/class/AssetData.html)
+[AssetData](https://docs.unrealengine.com/5.2/en-US/PythonAPI/class/AssetData.html)
 class. These are unloaded references that provide header information we can quickly query without paying the cost of loading the asset. 
 Metadata on this class type can be retrieved using
-[get_tag_value()](https://docs.unrealengine.com/5.1/en-US/PythonAPI/class/AssetData.html#unreal.AssetData.get_tag_value):
+[get_tag_value()](https://docs.unrealengine.com/5.2/en-US/PythonAPI/class/AssetData.html#unreal.AssetData.get_tag_value):
 ```python
 value = asset_data.get_tag_value("asset_name")
 ```
@@ -163,16 +163,16 @@ If the assets we wish to search for are tagged with certain metadata values we c
 We'll provide two inputs to our search: which class types to look for and a dict of {key:value} metadata pairs.
 
 The search might be on the complicated side, here is what the function will do with unreal doc links:
-1) It will use an [ARFilter](https://docs.unrealengine.com/5.1/en-US/PythonAPI/class/ARFilter.html#unreal.ARFilter)
+1) It will use an [ARFilter](https://docs.unrealengine.com/5.2/en-US/PythonAPI/class/ARFilter.html#unreal.ARFilter)
 object to tell the Asset Registry what class types we're looking for
-2) The Asset Registry's [get_assets()](https://docs.unrealengine.com/5.1/en-US/PythonAPI/class/AssetRegistry.html#unreal.AssetRegistry.get_assets)
-function is what will return our initial list of [AssetData](https://docs.unrealengine.com/5.1/en-US/PythonAPI/class/AssetData.html#unreal.AssetData)
+2) The Asset Registry's [get_assets()](https://docs.unrealengine.com/5.2/en-US/PythonAPI/class/AssetRegistry.html#unreal.AssetRegistry.get_assets)
+function is what will return our initial list of [AssetData](https://docs.unrealengine.com/5.2/en-US/PythonAPI/class/AssetData.html#unreal.AssetData)
 objects. We'll only filter for the class at this point
 3) To filter based on metadata we'll be converting the {key:value} metadata search into 
-[TagAndValue](https://docs.unrealengine.com/5.1/en-US/PythonAPI/class/TagAndValue.html#unreal.TagAndValue)
+[TagAndValue](https://docs.unrealengine.com/5.2/en-US/PythonAPI/class/TagAndValue.html#unreal.TagAndValue)
 objects and create new ARFilters using 
-[set_filter_tags_and_values()](https://docs.unrealengine.com/5.1/en-US/PythonAPI/class/AssetRegistryHelpers.html#unreal.AssetRegistryHelpers.set_filter_tags_and_values)
-4) For each metadata ARFilter we'll use [run_assets_through_filter()](https://docs.unrealengine.com/5.1/en-US/PythonAPI/class/AssetRegistry.html#unreal.AssetRegistry.run_assets_through_filter)
+[set_filter_tags_and_values()](https://docs.unrealengine.com/5.2/en-US/PythonAPI/class/AssetRegistryHelpers.html#unreal.AssetRegistryHelpers.set_filter_tags_and_values)
+4) For each metadata ARFilter we'll use [run_assets_through_filter()](https://docs.unrealengine.com/5.2/en-US/PythonAPI/class/AssetRegistry.html#unreal.AssetRegistry.run_assets_through_filter)
 to reduce the list of AssetData objects to only those matching each  filter
 
 <br>
@@ -237,5 +237,5 @@ purposes regardless of folder location. This allows us to build more intuitive t
 matching certain criteria or offer certain actions depending on the metadata values. 
 
 Here's some additional links I found useful or learned from:
- - [Asset Metadata in Unreal Engine](https://docs.unrealengine.com/5.1/en-US/asset-metadata-in-unreal-engine/)
+ - [Asset Metadata in Unreal Engine](https://docs.unrealengine.com/5.2/en-US/asset-metadata-in-unreal-engine/)
 </ul>

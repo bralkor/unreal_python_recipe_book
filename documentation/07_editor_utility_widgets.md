@@ -26,16 +26,16 @@ implemented on the `meta_viewer` tool.
 <ul>
 
 When it comes to editor tools we have a couple convenient functions to rely on.
-The [EditorUtilitySubsystem](https://docs.unrealengine.com/5.1/en-US/PythonAPI/class/EditorUtilitySubsystem.html)
+The [EditorUtilitySubsystem](https://docs.unrealengine.com/5.2/en-US/PythonAPI/class/EditorUtilitySubsystem.html)
 has everything we need to launch, query, and close our tools.
 
 ### <span style="color:orange">Launching Editor Utility Widgets</span>
 <ul>
 
 To launch an Editor Widget from python we have two options depending on whether we wish to save its window ID: 
-[spawn_and_register_tab()](https://docs.unrealengine.com/5.1/en-US/PythonAPI/class/EditorUtilitySubsystem.html#unreal.EditorUtilitySubsystem.spawn_and_register_tab)
+[spawn_and_register_tab()](https://docs.unrealengine.com/5.2/en-US/PythonAPI/class/EditorUtilitySubsystem.html#unreal.EditorUtilitySubsystem.spawn_and_register_tab)
 or
-[spawn_and_register_tab_and_get_id()](https://docs.unrealengine.com/5.1/en-US/PythonAPI/class/EditorUtilitySubsystem.html#unreal.EditorUtilitySubsystem.spawn_and_register_tab_and_get_id).
+[spawn_and_register_tab_and_get_id()](https://docs.unrealengine.com/5.2/en-US/PythonAPI/class/EditorUtilitySubsystem.html#unreal.EditorUtilitySubsystem.spawn_and_register_tab_and_get_id).
 
 For this example we'll intentionally ignore the ID. If we know our asset path here's how we can launch our tool:
 ```python
@@ -53,14 +53,14 @@ If we want to know whether an editor tool is running we can use one of two optio
 depending on if we know the Tab ID name for the given tool.
 
 If we know the `asset_tab_id` we can look for it using 
-[does_tab_exist()](https://docs.unrealengine.com/5.1/en-US/PythonAPI/class/EditorUtilitySubsystem.html#unreal.EditorUtilitySubsystem.does_tab_exist):
+[does_tab_exist()](https://docs.unrealengine.com/5.2/en-US/PythonAPI/class/EditorUtilitySubsystem.html#unreal.EditorUtilitySubsystem.does_tab_exist):
     
 ```python
 if unreal_systems.EditorUtilitySubsystem.does_tab_exist(asset_tab_id)
 ```
 
 If we don't have the Tab ID we can use
-[find_utility_widget_from_blueprint()](https://docs.unrealengine.com/5.1/en-US/PythonAPI/class/EditorUtilitySubsystem.html#unreal.EditorUtilitySubsystem.find_utility_widget_from_blueprint).
+[find_utility_widget_from_blueprint()](https://docs.unrealengine.com/5.2/en-US/PythonAPI/class/EditorUtilitySubsystem.html#unreal.EditorUtilitySubsystem.find_utility_widget_from_blueprint).
 If this function returns any information at all it means the tool is running:
     
 ```python
@@ -76,13 +76,13 @@ not be as performant if you're trying to check for all currently running editor 
 <ul>
 
 To close an editor tool we will need its window ID. If we have the `asset_tab_id` we can use
-[close_tab_by_id()](https://docs.unrealengine.com/5.1/en-US/PythonAPI/class/EditorUtilitySubsystem.html#unreal.EditorUtilitySubsystem.close_tab_by_id):
+[close_tab_by_id()](https://docs.unrealengine.com/5.2/en-US/PythonAPI/class/EditorUtilitySubsystem.html#unreal.EditorUtilitySubsystem.close_tab_by_id):
 ```python
 unreal_systems.EditorUtilitySubsystem.close_tab_by_id(asset_tab_id)
 ```
 
 If we don't have the ID but know the asset we can still make this work! 
-[find_utility_widget_from_blueprint()](https://docs.unrealengine.com/5.1/en-US/PythonAPI/class/EditorUtilitySubsystem.html#unreal.EditorUtilitySubsystem.find_utility_widget_from_blueprint)
+[find_utility_widget_from_blueprint()](https://docs.unrealengine.com/5.2/en-US/PythonAPI/class/EditorUtilitySubsystem.html#unreal.EditorUtilitySubsystem.find_utility_widget_from_blueprint)
 will tell us if it's currently open, if it is we'll just re-open the window to get its ID:
 ```python
 if unreal_systems.EditorUtilitySubsystem.find_utility_widget_from_blueprint(asset):
@@ -98,7 +98,7 @@ it's just an easy way to get the proper Tab ID!
 ### <span style="color:orange">What is the Window ID?</span>
 <ul>
 
-In Unreal `5.1` the Tab ID is based on the asset's object path like so:
+In Unreal `5.2` the Tab ID is based on the asset's object path like so:
 ```python
 f"{asset.get_path_name()}_ActiveTab"
 # ex: Game/Tools/my_awesome_tool.my_awesome_tool_ActiveTab

@@ -14,16 +14,16 @@ This page covers the [actors](../unreal_plugin/PythonRecipeBook/Content/Python/d
 <ul>
 
 For scene management we may want to know what the top-level actors are in our scene.
-UE 5.1 provides two convenience functions for getting a list of actors in our current 3D level: 
-[get_all_level_actors()](https://docs.unrealengine.com/5.1/en-US/PythonAPI/class/EditorActorSubsystem.html#unreal.EditorActorSubsystem.get_all_level_actors)
-and [get_selected_level_actors()](https://docs.unrealengine.com/5.1/en-US/PythonAPI/class/EditorActorSubsystem.html#unreal.EditorActorSubsystem.get_selected_level_actors).
+UE 5.2 provides two convenience functions for getting a list of actors in our current 3D level: 
+[get_all_level_actors()](https://docs.unrealengine.com/5.2/en-US/PythonAPI/class/EditorActorSubsystem.html#unreal.EditorActorSubsystem.get_all_level_actors)
+and [get_selected_level_actors()](https://docs.unrealengine.com/5.2/en-US/PythonAPI/class/EditorActorSubsystem.html#unreal.EditorActorSubsystem.get_selected_level_actors).
 You might notice that neither of these get the top-level actors for us.
 
 What we can do here is get all actors and check if their parent is None. There are two flavors of checking an actor's
 parent: 
-- [get_attach_parent_actor()](https://docs.unrealengine.com/5.1/en-US/PythonAPI/class/Actor.html#unreal.Actor.get_attach_parent_actor) 
+- [get_attach_parent_actor()](https://docs.unrealengine.com/5.2/en-US/PythonAPI/class/Actor.html#unreal.Actor.get_attach_parent_actor) 
 which handles actors nested in the 3D level 
-- [get_parent_actor()](https://docs.unrealengine.com/5.1/en-US/PythonAPI/class/Actor.html#unreal.Actor.get_parent_actor)
+- [get_parent_actor()](https://docs.unrealengine.com/5.2/en-US/PythonAPI/class/Actor.html#unreal.Actor.get_parent_actor)
 which handles actors spawned by other actors
     
 <br>
@@ -78,8 +78,8 @@ properties directly
 <ul>
 Keeping the differences in mind, let's separate the spawned actors from nested actors.
 
-To achieve this we'll use both [get_attached_actors()](https://docs.unrealengine.com/5.1/en-US/PythonAPI/class/Actor.html#unreal.Actor.get_attached_actors) 
-and [get_all_child_actors()](https://docs.unrealengine.com/5.1/en-US/PythonAPI/class/Actor.html#unreal.Actor.get_all_child_actors).
+To achieve this we'll use both [get_attached_actors()](https://docs.unrealengine.com/5.2/en-US/PythonAPI/class/Actor.html#unreal.Actor.get_attached_actors) 
+and [get_all_child_actors()](https://docs.unrealengine.com/5.2/en-US/PythonAPI/class/Actor.html#unreal.Actor.get_all_child_actors).
 With the results of these two functions we'll be able to tell the nested actors apart from the spawned actors.
 
 Here's our recursive function, it will print the current actor, its spawned actors, and then recurse through any nested actors:
@@ -147,7 +147,7 @@ An actor can have any number of components and those components can have their o
 transforms, and behaviors that we may need to be aware of.
 
 To get the children of a component we can use
-[get_children_components()](https://docs.unrealengine.com/5.1/en-US/PythonAPI/class/SceneComponent.html#unreal.SceneComponent.get_children_components).
+[get_children_components()](https://docs.unrealengine.com/5.2/en-US/PythonAPI/class/SceneComponent.html#unreal.SceneComponent.get_children_components).
 Here's our basic recursive function, just like we did with actors we'll print the current component and then check its children:
 ```python
 def walk_component(component, indent=2):
@@ -159,7 +159,7 @@ def walk_component(component, indent=2):
         walk_component(child, indent+2)
 ```
 When calling this function we want to start from an actor's 
-[root component](https://docs.unrealengine.com/5.1/en-US/PythonAPI/class/Actor.html#unreal.Actor.root_component),
+[root component](https://docs.unrealengine.com/5.2/en-US/PythonAPI/class/Actor.html#unreal.Actor.root_component),
 all actor components must be attached under its root:
 ```python
 print(actor.get_actor_label())
@@ -188,7 +188,7 @@ prints more entries than what's displayed in the Details Panel:
 ![](images/actor_details_hierarchy.PNG)
 
 This is because `function_test` spawns child actors. If we only want to view the immediate components of our given actor we can add a 
-[get_owner()](https://docs.unrealengine.com/5.1/en-US/PythonAPI/class/ActorComponent.html#unreal.ActorComponent.get_owner)
+[get_owner()](https://docs.unrealengine.com/5.2/en-US/PythonAPI/class/ActorComponent.html#unreal.ActorComponent.get_owner)
 check to confirm the component is directly managed by the given actor:
 ```python
 def walk_component(component, owner=None, indent=2):
@@ -232,7 +232,7 @@ on each type of actor, for this document we'll focus on a few common types: blue
 ### Blueprint Actors:
 <ul>
 
-To determine the source asset of a Blueprint Actor we can use [get_path_name()](https://docs.unrealengine.com/5.1/en-US/PythonAPI/class/_ObjectBase.html#unreal._ObjectBase.get_path_name)
+To determine the source asset of a Blueprint Actor we can use [get_path_name()](https://docs.unrealengine.com/5.2/en-US/PythonAPI/class/_ObjectBase.html#unreal._ObjectBase.get_path_name)
 on its class:
 ```python
 actor.get_class().get_path_name()
@@ -242,8 +242,8 @@ actor.get_class().get_path_name()
 ### Static Meshes:
 <ul>
 
-To determine the source asset of a [Static Mesh Actor](https://docs.unrealengine.com/5.1/en-US/PythonAPI/class/StaticMeshActor.html#unreal.StaticMeshActor)
-we can query the [static_mesh](https://docs.unrealengine.com/5.1/en-US/PythonAPI/class/StaticMeshComponent.html#unreal.StaticMeshComponent.static_mesh)
+To determine the source asset of a [Static Mesh Actor](https://docs.unrealengine.com/5.2/en-US/PythonAPI/class/StaticMeshActor.html#unreal.StaticMeshActor)
+we can query the [static_mesh](https://docs.unrealengine.com/5.2/en-US/PythonAPI/class/StaticMeshComponent.html#unreal.StaticMeshComponent.static_mesh)
 property on the actor's root component:
 ```python
 actor.static_mesh_component.static_mesh.get_path_name()
@@ -253,8 +253,8 @@ actor.static_mesh_component.static_mesh.get_path_name()
 ### Skeletal Meshes:
 <ul>
 
-To determine the source asset of a [Skeletal Mesh Actor](https://docs.unrealengine.com/5.1/en-US/PythonAPI/class/SkeletalMeshActor.html#unreal.SkeletalMeshActor)
-we can query the [skeletal_mesh](https://docs.unrealengine.com/5.1/en-US/PythonAPI/class/SkinnedMeshComponent.html#unreal.SkinnedMeshComponent.skeletal_mesh)
+To determine the source asset of a [Skeletal Mesh Actor](https://docs.unrealengine.com/5.2/en-US/PythonAPI/class/SkeletalMeshActor.html#unreal.SkeletalMeshActor)
+we can query the [skeletal_mesh](https://docs.unrealengine.com/5.2/en-US/PythonAPI/class/SkinnedMeshComponent.html#unreal.SkinnedMeshComponent.skeletal_mesh)
 property on the actor's root component:
 ```python
 actor.skeletal_mesh_component.skeletal_mesh.get_path_name()
@@ -299,16 +299,16 @@ For actors that won't have an asset, such as a light, we can use this informatio
 <ul>
 
 There are two methods to spawning an actor in our current 3D level: from 
-[an unreal class](https://docs.unrealengine.com/5.1/en-US/PythonAPI/class/EditorActorSubsystem.html#unreal.EditorActorSubsystem.spawn_actor_from_class)
+[an unreal class](https://docs.unrealengine.com/5.2/en-US/PythonAPI/class/EditorActorSubsystem.html#unreal.EditorActorSubsystem.spawn_actor_from_class)
 or from
-[an asset](https://docs.unrealengine.com/5.1/en-US/PythonAPI/class/EditorActorSubsystem.html#unreal.EditorActorSubsystem.spawn_actor_from_object).
+[an asset](https://docs.unrealengine.com/5.2/en-US/PythonAPI/class/EditorActorSubsystem.html#unreal.EditorActorSubsystem.spawn_actor_from_object).
 
 
 ### From an Unreal Class:
 <ul>
 
 If we know the unreal class we can pass it to
-[spawn_actor_from_class()](https://docs.unrealengine.com/5.1/en-US/PythonAPI/class/EditorActorSubsystem.html#unreal.EditorActorSubsystem.spawn_actor_from_class):
+[spawn_actor_from_class()](https://docs.unrealengine.com/5.2/en-US/PythonAPI/class/EditorActorSubsystem.html#unreal.EditorActorSubsystem.spawn_actor_from_class):
 
 ```python
 actor = unreal_systems.EditorActorSubsystem.spawn_actor_from_class(unreal.DirectionalLight)
@@ -329,7 +329,7 @@ if hasattr(unreal, class_name):
 <ul>
 
 From a loaded asset we can pass it to
-[spawn_actor_from_object()](https://docs.unrealengine.com/5.1/en-US/PythonAPI/class/EditorActorSubsystem.html#unreal.EditorActorSubsystem.spawn_actor_from_object):
+[spawn_actor_from_object()](https://docs.unrealengine.com/5.2/en-US/PythonAPI/class/EditorActorSubsystem.html#unreal.EditorActorSubsystem.spawn_actor_from_object):
 
 ```python
 asset_path = "/PythonRecipeBook/sample_assets/ue_functions_demo"
@@ -351,7 +351,7 @@ selection in the 3D level as well!
 
 We'll first create a function that we wish to call whenever the current actor selection has changed.
 For this we'll expect to be provided an
-[unreal.TypedElementSelectionSet](https://docs.unrealengine.com/5.1/en-US/PythonAPI/class/TypedElementSelectionSet.html#unreal.TypedElementSelectionSet)
+[unreal.TypedElementSelectionSet](https://docs.unrealengine.com/5.2/en-US/PythonAPI/class/TypedElementSelectionSet.html#unreal.TypedElementSelectionSet)
 selection set object:
 ```python
 def selection_tracker(selection_set):
@@ -364,7 +364,7 @@ def selection_tracker(selection_set):
 ```
 
 The selection set we want to provide this function belongs to the 
-[LevelEditorSubsystem](https://docs.unrealengine.com/5.1/en-US/PythonAPI/class/LevelEditorSubsystem.html#unreal.LevelEditorSubsystem.get_selection_set)
+[LevelEditorSubsystem](https://docs.unrealengine.com/5.2/en-US/PythonAPI/class/LevelEditorSubsystem.html#unreal.LevelEditorSubsystem.get_selection_set)
 :
 ```python
 LevelEditorSubsystem = unreal.get_editor_subsystem(unreal.LevelEditorSubsystem)

@@ -44,7 +44,7 @@ here is the blueprint logic to load them into UMG:
 
 ![](images/meta_viewer_image_from_path.PNG)
 
-The [Download Image](https://docs.unrealengine.com/5.1/en-US/BlueprintAPI/Class/AsyncTaskDownloadImage/DownloadImage/)
+The [Download Image](https://docs.unrealengine.com/5.2/en-US/BlueprintAPI/Class/AsyncTaskDownloadImage/DownloadImage/)
 blueprint node is used to load images from website urls, to load from a local file path instead just add a `file:///` 
 prefix and it will work!
 

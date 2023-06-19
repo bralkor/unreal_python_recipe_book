@@ -50,10 +50,10 @@ class PyDemoBPLibrary(unreal.BlueprintFunctionLibrary):
 ```
 This `PythonFunctionLibrary` class will be where all following function node examples are declared.
 
-- The [@unreal.uclass()](https://docs.unrealengine.com/5.1/en-US/PythonAPI/module/unreal.html#unreal.uclass)
+- The [@unreal.uclass()](https://docs.unrealengine.com/5.2/en-US/PythonAPI/module/unreal.html#unreal.uclass)
 decorator tells Unreal to expose it to the Editor
 - The `PyDemoBPLibrary` class name is arbitrary, name it uniquely as you please!
-- The [unreal.BlueprintFunctionLibrary](https://docs.unrealengine.com/5.1/en-US/PythonAPI/class/BlueprintFunctionLibrary.html#unreal.BlueprintFunctionLibrary)
+- The [unreal.BlueprintFunctionLibrary](https://docs.unrealengine.com/5.2/en-US/PythonAPI/class/BlueprintFunctionLibrary.html#unreal.BlueprintFunctionLibrary)
 base class handles everything else
     
 <br>
@@ -92,7 +92,7 @@ def basic_function_test():
 </td></tr>
 </table>
 
-- [@unreal.ufunction()](https://docs.unrealengine.com/5.1/en-US/PythonAPI/module/unreal.html#unreal.ufunction)
+- [@unreal.ufunction()](https://docs.unrealengine.com/5.2/en-US/PythonAPI/module/unreal.html#unreal.ufunction)
 converts our Python function into a Blueprint Graph node, all of our settings will go in here.
 - `static=True` tells Unreal that a `self` arg is not expected, all of our functions will have this
 - Any Python docstring will also show in Unreal as the tool tip
@@ -207,7 +207,7 @@ The bogus returnValue will be revisited later in the [HidePin](02_blueprint_func
 ## <span style="color:orange">Handling Lists</span>
 <ul>
 
-When handling lists you must use the [unreal.Array(type)](https://docs.unrealengine.com/5.1/en-US/PythonAPI/class/Array.html#unreal.Array) 
+When handling lists you must use the [unreal.Array(type)](https://docs.unrealengine.com/5.2/en-US/PythonAPI/class/Array.html#unreal.Array) 
 class and declare its content:
 <table><tr><td>
 
@@ -278,7 +278,7 @@ Pure functions promise not to change the state of the Unreal class calling them.
 # <span style="color:yellow">Declaring Functions - Metadata Specifiers</span>
 <ul>
 
-This section covers the `meta` arg, which represents Metadata Specifiers. Given a dict of specifiers this flag grants further control over how the Blueprint node is organized, displayed, and behaves. To learn more about Metadata Specifiers [this Unreal page is a great resource](https://docs.unrealengine.com/5.1/en-US/metadata-specifiers-in-unreal-engine/).
+This section covers the `meta` arg, which represents Metadata Specifiers. Given a dict of specifiers this flag grants further control over how the Blueprint node is organized, displayed, and behaves. To learn more about Metadata Specifiers [this Unreal page is a great resource](https://docs.unrealengine.com/5.2/en-US/metadata-specifiers-in-unreal-engine/).
 
 
 ## <span style="color:orange">Category</span>
@@ -488,5 +488,5 @@ It has some quirks, but it presents a lot of power and versatility to extending 
 Here's some additional links I found useful or learned from:
  - [medium article by Filip Sivák](https://filipsivak.medium.com/python-in-unreal-engine-the-undocumented-parts-7585434f5d76)
  - [medium article by Joe Graf](https://medium.com/@joe.j.graf/building-ue4-blueprint-function-libraries-in-python-746ea9dd08b2)
- - [Unreal Metadata Specifiers](https://docs.unrealengine.com/5.1/en-US/metadata-specifiers-in-unreal-engine/)
+ - [Unreal Metadata Specifiers](https://docs.unrealengine.com/5.2/en-US/metadata-specifiers-in-unreal-engine/)
 </ul>

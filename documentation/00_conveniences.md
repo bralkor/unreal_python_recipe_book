@@ -69,9 +69,9 @@ def is_content_browser_loaded():
 ### Editor and Engine Subsystems
     
 Another use case for this convenience module are subsystems. Depending on the subsystem it may use either
-[get_editor_subsystem()](https://docs.unrealengine.com/5.1/en-US/PythonAPI/module/unreal.html#unreal.get_editor_subsystem)
+[get_editor_subsystem()](https://docs.unrealengine.com/5.2/en-US/PythonAPI/module/unreal.html#unreal.get_editor_subsystem)
 or
-[get_engine_subsystem()](https://docs.unrealengine.com/5.1/en-US/PythonAPI/module/unreal.html#unreal.get_engine_subsystem)
+[get_engine_subsystem()](https://docs.unrealengine.com/5.2/en-US/PythonAPI/module/unreal.html#unreal.get_engine_subsystem)
 to get the subsystem's global instance. 
     
 While it is possible to use `unreal.AssetEditorSubsystem().do_the_thing()` to perform most subsystem functionality, the global instances
@@ -115,7 +115,7 @@ def save_asset(asset):
         asset = asset.get_outermost().get_path_name()
     EditorAssetSubsystem.save_asset(asset)
 ```
-[unreal.EditorAssetSubsystem.save_asset](https://docs.unrealengine.com/5.1/en-US/PythonAPI/class/EditorAssetSubsystem.html#unreal.EditorAssetSubsystem.save_asset)
+[unreal.EditorAssetSubsystem.save_asset](https://docs.unrealengine.com/5.2/en-US/PythonAPI/class/EditorAssetSubsystem.html#unreal.EditorAssetSubsystem.save_asset)
 requires the asset's path, if we wrap this function we can also support object references as well, meaning one less thing to worry about as we write other functions and tools.
 
 </ul>

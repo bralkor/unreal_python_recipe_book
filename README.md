@@ -26,7 +26,7 @@ Please feel free to learn from and reference this project as you explore Python 
 There are two sections of this Project:
 1) [Documentation](./documentation) covering various topics of using Python in Unreal
 2) [An Unreal Plugin](./unreal_plugin/PythonRecipeBook) containing working code and demo material 
-which may be placed in any `UE5.1` project
+which may be placed in any `UE5.2` project
 
 <br>
 
@@ -49,7 +49,7 @@ The focus of this documentation is on working examples, it is recommended reader
 <ul>
 
 The provided [PythonRecipeBook](./unreal_plugin/PythonRecipeBook) plugin contains all of the code covered in the Documentation.
-It may be added to any Unreal 5.1 project to demo the topics covered or review how the various parts work in practice.
+It may be added to any Unreal 5.2 project to demo the topics covered or review how the various parts work in practice.
 
 The plugin contains the following:
 
@@ -110,6 +110,14 @@ or Unreal code snippets you wish to share please feel free to message me on [Lin
 While updates may be infrequent I do plan to add to and update this project as time allows. 
 Please allow time as new versions of UE5 are released as updates may take time to publish.
 
-Notable updates and additions will be logged below
+---
+
+**19 June 2023**
+<ul>
+
+- built plugin for UE5.2 and updated doc links - no notable API changes
+
+</ul>
+
 
 </ul>

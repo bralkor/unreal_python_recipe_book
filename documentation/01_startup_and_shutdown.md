@@ -17,7 +17,7 @@ This page covers the [init_unreal](../unreal_plugin/PythonRecipeBook/Content/Pyt
 Unreal will look for and run any `/Python/init_unreal.py` files in its environment during startup.
 This file may be in the Content Browser, a Plugin, or even a rez package if you're managing Unreal with rez, as long as
 it's directly under a top-level `/Python/` folder it should run. The
-[Unreal Scripting the Editor using Python](https://docs.unrealengine.com/5.1/en-US/scripting-the-unreal-editor-using-python/)
+[Unreal Scripting the Editor using Python](https://docs.unrealengine.com/5.2/en-US/scripting-the-unreal-editor-using-python/)
 Epic doc page has a section covering init_unreal that's worth reading.
 
 A preference of mine is to treat `init_unreal.py` more like an `__init__`, the only thing I put in my
@@ -77,9 +77,9 @@ With this setup we can use custom Blueprint Assets in the Content Browser as Con
 safely launch Editor Utility Widgets, or load any cached states from a previous editor session.
 
 There isn't a provided Unreal callback for this, instead we'll use 
-[register_slate_post_tick_callback()](https://docs.unrealengine.com/5.1/en-US/PythonAPI/module/unreal.html#unreal.register_slate_post_tick_callback)
+[register_slate_post_tick_callback()](https://docs.unrealengine.com/5.2/en-US/PythonAPI/module/unreal.html#unreal.register_slate_post_tick_callback)
 to add a per-frame callback during `Pre Startup`to check the Asset Registry's
-[is_loading_assets()](https://docs.unrealengine.com/5.1/en-US/PythonAPI/class/AssetRegistry.html#unreal.AssetRegistry.is_loading_assets)
+[is_loading_assets()](https://docs.unrealengine.com/5.2/en-US/PythonAPI/class/AssetRegistry.html#unreal.AssetRegistry.is_loading_assets)
 function. Once the Asset Registry is done loading assets we can safely run our `Post Startup` script:
 ```python
 # in our pre_startup function we'll create a post-tick callback and save its ID to a module variable
@@ -128,7 +128,7 @@ handled by the tools directly as the Python shutdown event will have limited inf
 expect access to the last 3D Level that was open and any environment variables.
 
 To setup our Shutdown event we'll add 
-[register_python_shutdown_callback()](https://docs.unrealengine.com/5.1/en-US/PythonAPI/module/unreal.html#unreal.register_python_shutdown_callback)
+[register_python_shutdown_callback()](https://docs.unrealengine.com/5.2/en-US/PythonAPI/module/unreal.html#unreal.register_python_shutdown_callback)
 to the end of `Post Startup`, :
 
 ```python
@@ -162,5 +162,5 @@ Python initialization happens just before the Asset registry has loaded the Proj
 startup process we can use callbacks to delay certain operations until it is safe to run.
     
 Here's some additional links I found useful or learned from:
- - [Unreal Scripting the Editor using Python](https://docs.unrealengine.com/5.1/en-US/scripting-the-unreal-editor-using-python/)
+ - [Unreal Scripting the Editor using Python](https://docs.unrealengine.com/5.2/en-US/scripting-the-unreal-editor-using-python/)
 </ul>

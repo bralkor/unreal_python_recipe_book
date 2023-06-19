@@ -49,7 +49,7 @@ Here's a breakdown of the noted areas in the above screenshot:
 <ul>
 
 Out first step in extending a menu is getting a handle on it. Using the Edit Menu above I was able to find `LevelEditor.MainMenu`, 
-with this menu path we can use [find_menu()](https://docs.unrealengine.com/5.1/en-US/PythonAPI/class/ToolMenus.html#unreal.ToolMenus.find_menu)
+with this menu path we can use [find_menu()](https://docs.unrealengine.com/5.2/en-US/PythonAPI/class/ToolMenus.html#unreal.ToolMenus.find_menu)
 to get a Python reference to it: 
 ```python
 unreal_tool_menus = unreal.ToolMenus.get()
@@ -68,7 +68,7 @@ We now have a reference to the main menu along the top of the Unreal Editor!
 
 Something we may wish to do is add a sub menu - instead of adding all of our menu items to `MainMenu` directly 
 we can group them in their own dropdown together using 
-[add_sub_menu()](https://docs.unrealengine.com/5.1/en-US/PythonAPI/class/ToolMenu.html#unreal.ToolMenu.add_sub_menu):
+[add_sub_menu()](https://docs.unrealengine.com/5.2/en-US/PythonAPI/class/ToolMenu.html#unreal.ToolMenu.add_sub_menu):
 
 ```python
 dropdown_menu = target_menu.add_sub_menu(
@@ -95,11 +95,11 @@ Unreal Menus is one of the areas of Unreal where we'll want to create new classe
 This will allow us to create and reuse functionality in the menu items' classes instead of muddying the logic that adds our menus to the UI.
 
 To make our own base class we'll want to extend from 
-[ToolMenuEntryScript](https://docs.unrealengine.com/5.1/en-US/PythonAPI/class/ToolMenuEntryScript.html#unreal.ToolMenuEntryScript).
+[ToolMenuEntryScript](https://docs.unrealengine.com/5.2/en-US/PythonAPI/class/ToolMenuEntryScript.html#unreal.ToolMenuEntryScript).
 Our init will use 
-[init_entry()](https://docs.unrealengine.com/5.1/en-US/PythonAPI/class/ToolMenuEntryScript.html#unreal.ToolMenuEntryScript.init_entry) 
+[init_entry()](https://docs.unrealengine.com/5.2/en-US/PythonAPI/class/ToolMenuEntryScript.html#unreal.ToolMenuEntryScript.init_entry) 
 to prepare our entry for the desired menu and 
-[add_menu_entry_object()](https://docs.unrealengine.com/5.1/en-US/PythonAPI/class/ToolMenu.html#unreal.ToolMenu.add_menu_entry_object)
+[add_menu_entry_object()](https://docs.unrealengine.com/5.2/en-US/PythonAPI/class/ToolMenu.html#unreal.ToolMenu.add_menu_entry_object)
 to actually add it to the UI:
 
 ```python
@@ -128,7 +128,7 @@ class PythonMenuTool(unreal.ToolMenuEntryScript):
 Now we can fully setup any menu entries as part of its init.
 
 To declare what our menu button will do when pressed we can override the
-[execute()](https://docs.unrealengine.com/5.1/en-US/PythonAPI/class/ToolMenuEntryScript.html#unreal.ToolMenuEntryScript.execute)
+[execute()](https://docs.unrealengine.com/5.2/en-US/PythonAPI/class/ToolMenuEntryScript.html#unreal.ToolMenuEntryScript.execute)
 function in our `PythonMenuTool`:
 ```python
     @unreal.ufunction(override=True)
@@ -136,12 +136,12 @@ function in our `PythonMenuTool`:
         """The Python code to execute when pressed"""
         print(f"Provided context: {context}")
 ```
-An [unreal.ToolMenuContext](https://docs.unrealengine.com/5.1/en-US/PythonAPI/class/ToolMenuContext.html#unreal.ToolMenuContext)
+An [unreal.ToolMenuContext](https://docs.unrealengine.com/5.2/en-US/PythonAPI/class/ToolMenuContext.html#unreal.ToolMenuContext)
 object is provided to determine where the menu entry was pressed from, for more advanced menu tools
 you may wish to look into this, but we'll skip this for today.
 
 An optional addition to our class is 
-[can_execute()](https://docs.unrealengine.com/5.1/en-US/PythonAPI/class/ToolMenuEntryScript.html#unreal.ToolMenuEntryScript.can_execute),
+[can_execute()](https://docs.unrealengine.com/5.2/en-US/PythonAPI/class/ToolMenuEntryScript.html#unreal.ToolMenuEntryScript.can_execute),
 this will control whether  the menu button is available:
 
 ```python
@@ -209,7 +209,7 @@ Using our `dropdown_menu` from earlier, this is all it takes to add our new tool
 PythonMenuTool(dropdown_menu)
 ```
 
-We can also use [add_section()](https://docs.unrealengine.com/5.1/en-US/PythonAPI/class/ToolMenu.html#unreal.ToolMenu.add_section)
+We can also use [add_section()](https://docs.unrealengine.com/5.2/en-US/PythonAPI/class/ToolMenu.html#unreal.ToolMenu.add_section)
 to create a new section to place it under:
 ```python
 section = "test"
@@ -236,7 +236,7 @@ This alternate method is something I learned about from reading
 it will let us add a new entry between existing ones.
 
 we'll first create another 
-[ToolMenuEntryScript](https://docs.unrealengine.com/5.1/en-US/PythonAPI/class/ToolMenuEntryScript.html#unreal.ToolMenuEntryScript)
+[ToolMenuEntryScript](https://docs.unrealengine.com/5.2/en-US/PythonAPI/class/ToolMenuEntryScript.html#unreal.ToolMenuEntryScript)
 class like before, however this time its `__init__()` will not add the entry to its containing menu on init:
 ```python
 @unreal.uclass()
@@ -266,7 +266,7 @@ class Huzzah(unreal.ToolMenuEntryScript):
  
 In Unreal's `Edit` dropdown menu we'll add this menu right after the `Paste` entry. To do this we'll first get
 a reference to the Edit menu and create an insert policy using a 
-[ToolMenuInsert](https://docs.unrealengine.com/5.1/en-US/PythonAPI/class/ToolMenuInsert.html#unreal.ToolMenuInsert)
+[ToolMenuInsert](https://docs.unrealengine.com/5.2/en-US/PythonAPI/class/ToolMenuInsert.html#unreal.ToolMenuInsert)
 object:
 ```python
 unreal_tool_menus = unreal.ToolMenus.get()
@@ -280,7 +280,7 @@ We now have the Edit menu, an insert policy, and the section name that `Paste` i
 <br>
 
 To control how `Huzzah` is added to the menu we'll need to wrap it in a 
-[ToolMenuEntry](https://docs.unrealengine.com/5.1/en-US/PythonAPI/class/ToolMenuEntry.html#unreal.ToolMenuEntry).
+[ToolMenuEntry](https://docs.unrealengine.com/5.2/en-US/PythonAPI/class/ToolMenuEntry.html#unreal.ToolMenuEntry).
 At a minimum we need to provide a script object, its menu item type, and instructions on how to insert it:
 ```python
 entry = unreal.ToolMenuEntry(
@@ -295,9 +295,9 @@ edit_menu.add_menu_entry(section, entry)
 ```
 
 A small difference here is that we're now using
-[add_menu_entry()](https://docs.unrealengine.com/5.1/en-US/PythonAPI/class/ToolMenu.html#unreal.ToolMenu.add_menu_entry) 
+[add_menu_entry()](https://docs.unrealengine.com/5.2/en-US/PythonAPI/class/ToolMenu.html#unreal.ToolMenu.add_menu_entry) 
 instead of 
-[add_menu_entry_object()](https://docs.unrealengine.com/5.1/en-US/PythonAPI/class/ToolMenu.html#unreal.ToolMenu.add_menu_entry_object) 
+[add_menu_entry_object()](https://docs.unrealengine.com/5.2/en-US/PythonAPI/class/ToolMenu.html#unreal.ToolMenu.add_menu_entry_object) 
 to add the entry. The first function allows us to tell the parent menu what we're adding to it and how, 
 the second function just adds the entry script to the bottom of the parent menu.
 
@@ -335,7 +335,7 @@ otherwise add this menu entry to the bottom of the list.
 <br>
  
 After running our code 
-[(with a refresh to be safe)](https://docs.unrealengine.com/5.1/en-US/PythonAPI/class/ToolMenus.html#unreal.ToolMenus.refresh_all_widgets)
+[(with a refresh to be safe)](https://docs.unrealengine.com/5.2/en-US/PythonAPI/class/ToolMenus.html#unreal.ToolMenus.refresh_all_widgets)
 `Huzzah` has successfully been inserted after `Paste` in the Edit menu - huzzah!
 
 ![](images/edit_menu_alternate.PNG)
@@ -355,9 +355,9 @@ We can add file menu options, viewport options, create asset options, and even a
 It's well worth turning on the ToolMenus cvar and seeing just how much is available. 
 
 As shown in this document there's different ways to add our menu entries. It's well worth looking into 
-[ToolMenuEntry](https://docs.unrealengine.com/5.1/en-US/PythonAPI/class/ToolMenuEntry.html#unreal.ToolMenuEntry)
+[ToolMenuEntry](https://docs.unrealengine.com/5.2/en-US/PythonAPI/class/ToolMenuEntry.html#unreal.ToolMenuEntry)
 when you need more control over how a menu is added, but it's also perfectly acceptable to use a 
-[ToolMenuEntryScript](https://docs.unrealengine.com/5.1/en-US/PythonAPI/class/ToolMenuEntryScript.html#unreal.ToolMenuEntryScript)
+[ToolMenuEntryScript](https://docs.unrealengine.com/5.2/en-US/PythonAPI/class/ToolMenuEntryScript.html#unreal.ToolMenuEntryScript)
 directly to just get it listed.
 
 And to give credit once more, here is [rondreas' original implementation](https://gist.github.com/rondreas/eeecb0fcf52f05e898e0e31b22658068) 

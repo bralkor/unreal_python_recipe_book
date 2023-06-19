@@ -18,8 +18,8 @@ python module
 
 Any asset in our Content Browser can be loaded in Python by its asset path. There are two functions available
 to handle this, 
-[unreal.load_asset()](https://docs.unrealengine.com/5.1/en-US/PythonAPI/module/unreal.html#unreal.load_asset)
-or [EditorAssetLibrary.load_asset()](https://docs.unrealengine.com/5.1/en-US/PythonAPI/class/EditorAssetLibrary.html#unreal.EditorAssetLibrary.load_asset).
+[unreal.load_asset()](https://docs.unrealengine.com/5.2/en-US/PythonAPI/module/unreal.html#unreal.load_asset)
+or [EditorAssetLibrary.load_asset()](https://docs.unrealengine.com/5.2/en-US/PythonAPI/class/EditorAssetLibrary.html#unreal.EditorAssetLibrary.load_asset).
 Either option is fine here, they will both give the same result:
 ```python
 asset_path = "/PythonRecipeBook/sample_tools/widgets/meta_item_data"
@@ -30,9 +30,9 @@ asset = unreal_systems.EditorAssetLibrary.load_asset(asset_path)
 ```
 
 With an asset loaded we can set some default class properties, to see what's available it's best to check 
-the [Python Docs](https://docs.unrealengine.com/5.1/en-US/PythonAPI/).
+the [Python Docs](https://docs.unrealengine.com/5.2/en-US/PythonAPI/).
 As an example, on a `LevelSequence` asset we could call its 
-[set_playback_start()](https://docs.unrealengine.com/5.1/en-US/PythonAPI/class/MovieSceneSequence.html#unreal.MovieSceneSequence.set_playback_start)
+[set_playback_start()](https://docs.unrealengine.com/5.2/en-US/PythonAPI/class/MovieSceneSequence.html#unreal.MovieSceneSequence.set_playback_start)
 function to set its start frame using `asset.set_playback_start(50)`. Now when we open the `LevelSequence` in the Editor
 it will start at frame `50`.
 
@@ -46,15 +46,15 @@ it will start at frame `50`.
 
 Our Blueprint asset use in Python doesn't stop at loading assets, we can also create instances of them as well!
 The Blueprint asset we loaded is an item data asset meant for an Editor Tool designed in 
-[UMG](https://docs.unrealengine.com/5.1/en-US/umg-ui-designer-for-unreal-engine/).
+[UMG](https://docs.unrealengine.com/5.2/en-US/umg-ui-designer-for-unreal-engine/).
 It's relatively basic, mostly a container for some unique properties:
 
 ![](images/meta_viewer_item_class.PNG)
 
 When we use this in our tool we'll want to create as many instances of this asset class as needed. 
 The process to do so is relatively simple, we just need to get the loaded asset's 
-[generated class()](https://docs.unrealengine.com/5.1/en-US/PythonAPI/class/Blueprint.html#unreal.Blueprint.generated_class)
-and [create a new object()](https://docs.unrealengine.com/5.1/en-US/PythonAPI/module/unreal.html#unreal.new_object):
+[generated class()](https://docs.unrealengine.com/5.2/en-US/PythonAPI/class/Blueprint.html#unreal.Blueprint.generated_class)
+and [create a new object()](https://docs.unrealengine.com/5.2/en-US/PythonAPI/module/unreal.html#unreal.new_object):
 ```python
 asset_instance = unreal.new_object(asset.generated_class())
 ```
@@ -70,7 +70,7 @@ asset_instance = unreal.new_object(asset.generated_class())
 Now that we have a new instance we can set our unique information. 
 
 When setting Blueprint variables from Python we can use 
-[set_editor_properties()](https://docs.unrealengine.com/5.1/en-US/PythonAPI/class/_ObjectBase.html#unreal._ObjectBase.set_editor_properties),
+[set_editor_properties()](https://docs.unrealengine.com/5.2/en-US/PythonAPI/class/_ObjectBase.html#unreal._ObjectBase.set_editor_properties),
 this will allow us to set multiple variables in one call as a dict of {name:value} pairs:
 ```python
 asset_instance.set_editor_properties({
@@ -80,9 +80,9 @@ asset_instance.set_editor_properties({
 ```
 
 For any singular property we can use
-[set_editor_property()](https://docs.unrealengine.com/5.1/en-US/PythonAPI/class/_ObjectBase.html#unreal._ObjectBase.set_editor_property)
+[set_editor_property()](https://docs.unrealengine.com/5.2/en-US/PythonAPI/class/_ObjectBase.html#unreal._ObjectBase.set_editor_property)
 to set them or
-[get_editor_property()](https://docs.unrealengine.com/5.1/en-US/PythonAPI/class/_ObjectBase.html#unreal._ObjectBase.get_editor_property)
+[get_editor_property()](https://docs.unrealengine.com/5.2/en-US/PythonAPI/class/_ObjectBase.html#unreal._ObjectBase.get_editor_property)
 to get them.
 
 When setting or getting editor properties for any Blueprint assets you will need the exact programmatic name, this may differ from what is displayed
@@ -97,7 +97,7 @@ in the Unreal Editor.
 <ul>
 
 Functions created in the Unreal Editor can be accessed in Python using 
-[call_method()](https://docs.unrealengine.com/5.1/en-US/PythonAPI/class/_ObjectBase.html#unreal._ObjectBase.call_method).
+[call_method()](https://docs.unrealengine.com/5.2/en-US/PythonAPI/class/_ObjectBase.html#unreal._ObjectBase.call_method).
 Using a Blueprint Actor as an example, if we had the Python reference to a spawned instance in a 3D Level we could use
 this function to call any custom functions defined in the asset's Blueprint Graph.
 
@@ -155,7 +155,7 @@ If you use `camelCase` or any spaces in your Blueprint function names their acce
 <ul>
 
 The only real concern when using 
-[call_method()](https://docs.unrealengine.com/5.1/en-US/PythonAPI/class/_ObjectBase.html#unreal._ObjectBase.call_method)
+[call_method()](https://docs.unrealengine.com/5.2/en-US/PythonAPI/class/_ObjectBase.html#unreal._ObjectBase.call_method)
 is making sure your target actor/asset is of the correct type.
 A more verbose example is available in the [actors](../unreal_plugin/PythonRecipeBook/Content/Python/demo/actors.py)
 module, but this is how we can make sure an object instance inherits from our desired class:
@@ -170,7 +170,7 @@ def is_functions_demo_actor(actor):
 ```
 
 While I'm relatively certain it's okay to use Python's `isinstance()` function I used the math library's
-[class_is_child_of()](https://docs.unrealengine.com/5.1/en-US/PythonAPI/class/MathLibrary.html#unreal.MathLibrary.class_is_child_of)
+[class_is_child_of()](https://docs.unrealengine.com/5.2/en-US/PythonAPI/class/MathLibrary.html#unreal.MathLibrary.class_is_child_of)
 function in case there's any other unreal considerations I'm unaware of.
 
 </ul>
