@@ -124,8 +124,8 @@ An example Editor Tool which makes use of Python. This tool displays arbitrary a
 </td><td>
 
 Addressing the concerns mentioned on the
-[Blueprint Function Libraries](./02_blueprint_function_libraries.md) and
-[EUWs and Python](./07_editor_utility_widgets.md) pages,
+[Blueprint Function Libraries](./documentation/02_blueprint_function_libraries.md) and
+[EUWs and Python](./documentation/07_editor_utility_widgets.md) pages,
 this covers how to make Python-based Blueprint Functions safer to use.
 
 </td></tr>
