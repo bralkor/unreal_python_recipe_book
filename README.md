@@ -13,8 +13,8 @@ This project explores the use of Python to interact with, manage, and extend asp
 
 ## Overview
 
-This project is meant to supplement the offical Epic documentation on Python and is
-**unaffiliated** with Epic. This project is written and maintained by Brian Kortbus.
+This project is meant to supplement the official Epic documentation on Python and is
+**unaffiliated** with Epic or any company. This project is written and maintained by Brian Kortbus.
 This project is meant to provide examples of how Unreal's systems can be used via Python 
 and explore what's possible. This project is considered incomplete, new pages and revisions 
 will be added as time allows. We will also try to update this whenever
@@ -128,6 +128,16 @@ Addressing the concerns mentioned on the
 [EUWs and Python](./documentation/07_editor_utility_widgets.md) pages,
 this covers how to make Python-based Blueprint Functions safer to use.
 
+</td></tr><tr><td>
+
+
+(10) [Handling Engine Version Transitions](./documentation/10_engine_version_transitions.md)
+</td><td>
+
+Methods to handle supporting or transitioning between Unreal versions. This covers a utility
+class for having version-specific Python logic as well as a method to see what classes &
+properties have been added to the Unreal Python API
+
 </td></tr>
 </table>
 
@@ -173,7 +183,7 @@ For encouraging me to pick up this project again and keep working on it.
 <br>
 
 [Spire Animation Studios](https://spirestudios.com/) <br>
-For providing an environment where I am able to persue this personal project and supporting my desire to make it public.
+For providing an environment where I was able to pursue this project.
 
 </ul>
 <br>
@@ -204,6 +214,15 @@ While updates may be infrequent I do plan to add to and update this project as t
 Please allow time as new versions of UE5 are released as updates may take time to publish.
 
 ---
+
+**13 August 2023**
+<ul>
+
+- Added [documentation](./documentation/10_engine_version_transitions.md)
+and [a new Python module](./unreal_plugin/PythonRecipeBook/Content/Python/demo/engine.py)
+on `Handling Engine Version Transitions`
+
+</ul>
 
 **19 June 2023**
 <ul>

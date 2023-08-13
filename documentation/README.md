@@ -107,6 +107,16 @@ Addressing the concerns mentioned on the
 [EUWs and Python](./07_editor_utility_widgets.md) pages,
 this covers how to make Python-based Blueprint Functions safer to use.
 
+</td></tr><tr><td>
+
+
+(10) [Handling Engine Version Transitions](./10_engine_version_transitions.md)
+</td><td>
+
+Methods to handle supporting or transitioning between Unreal versions. This covers a utility
+class for having version-specific Python logic as well as a method to see what classes &
+properties have been added to the Unreal Python API
+
 </td></tr>
 </table>
 
