@@ -2,11 +2,11 @@
 This module provides examples for handling Unreal Engine versions and discovering Python API changes
 """
 
-import unreal
-
 from functools import total_ordering
 import json
 from pathlib import Path
+
+import unreal
 
 
 PYTHON_DATA_DIR = Path(unreal.SystemLibrary.get_platform_user_dir()) / "unreal/engine_python_data/"
@@ -32,7 +32,7 @@ class EngineVersion:
         version_ids = version.split(".")
         if not len(version_ids) or not all([i.isdigit() for i in version_ids]):
             raise ValueError(
-                f"EngineVersion Was provided '{version}' - must be in the format of '5' , '5.0' , or '5.0.0'"
+                f"EngineVersion was provided '{version}' - must be in the format of '5' , '5.0' , or '5.0.0'"
             )
 
         # Store the version data
@@ -82,7 +82,6 @@ def compare_unreal_python_versions(source_version: str, target_version: str = ""
 
     return:
         Dict of new classes and properties only found in the target version
-
     """
     source = EngineVersion(source_version)
     target = EngineVersion(target_version)
