@@ -38,7 +38,7 @@ Using this information we'll create a utility class we can use to make version-s
 The version numbering used in the Unreal versions follows the 
 [Semantic Versioning](https://semver.org/)
 schema, which is generally presented in the order of `major.minor.patch`. For our Utility class, let's assume
-the version is being provided as a string, either in the format of `"5"`, `"5.0""`, or `"5.0.0"`. We'll store
+the version is being provided as a string, either in the format of `"5"`, `"5.0"`, or `"5.0.0"`. We'll store
 each value in a dedicated class property:
 
 ```python
@@ -49,7 +49,7 @@ class EngineVersion:
         version_ids = version.split(".")
         version_ids = [int(i) for i in version_ids]
 
-        # Ensure enough values are available
+        # Ensure enough values are available to unpack
         version_ids.extend([0, 0])
         self.major, self.minor, self.patch = version_ids[0:3]
 ```
@@ -224,7 +224,8 @@ data_file = data_dir / (str(EngineVersion()).replace(".", "_") + ".json")
     <user_dir>/unreal/engine_python_data/5_2_1.json
 ```
 
-With our file ready to go, all we need to do is open the json file and
+We want to avoid having `.` in the file name, so I converted them to `_` here to be computer-safe! 
+And now with our file ready to go, all we need to do is open the json file and
 [dump the class_data dict](https://docs.python.org/3/library/json.html#json.dump) -
 This will write our Python dict data to the json file:
 ```python
@@ -251,7 +252,7 @@ def compare_unreal_python_versions(source_version: str, target_version: str):
     target = EngineVersion(target_version)
 ```
 
-Using the same process as earlier we'll get their file objects and load the json file data in:
+Using the same process as earlier we'll get their file objects and load the json file data into memory:
 ```python
 data_dir = Path(unreal.SystemLibrary.get_platform_user_dir()) / "unreal/engine_python_data/"
 
