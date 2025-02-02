@@ -1,6 +1,6 @@
 <br></br>
 
-![](resources/banner.PNG)
+![](resources/banner.png)
 
 <h2 align="center">Unreal Python Recipe Book</h2>
 
